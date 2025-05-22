@@ -1,3 +1,12 @@
 [build]
   publish = ".next"
   command = "npm run build"
+
+[[edge_functions]]
+pattern = "/(.*)"
+excludedPattern = [
+  "/api/(.*)",
+  "/fapi/(.*)",
+  "(.*).(png|svg|map|woff2|ico|css)"
+]
+function = "human-enforcer"
