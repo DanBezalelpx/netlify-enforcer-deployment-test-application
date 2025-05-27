@@ -1,4 +1,4 @@
-import { LoggerSeverity, ModuleMode, PXEnforcer, PXRawConfig } from '@chen.zimmer.perimeterx/internal-human-security-netlify-enforcer';
+import { LoggerSeverity, ModuleMode, PXEnforcer, PXRawConfig } from 'internal-human-security-netlify-enforcer';
 import type { Context } from "@netlify/edge-functions";
 
 export default async function handler(request: Request, context: Context) {
