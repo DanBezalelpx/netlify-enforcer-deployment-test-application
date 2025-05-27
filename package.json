@@ -9,7 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@chen.zimmer.perimeterx/internal-human-security-netlify-enforcer": "^1.0.23-test",
+        "@chen.zimmer.perimeterx/internal-human-security-netlify-enforcer": "^1.0.24-internal",
         "@netlify/blobs": "^8.2.0",
         "@netlify/edge-functions": "^2.12.0",
         "blobshape": "^1.0.0",
