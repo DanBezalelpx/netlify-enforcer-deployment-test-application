@@ -8,8 +8,33 @@ const VALID_PASSWORD = '1234';
 
 export async function POST(request) {
     try {
-        const body = await request.json();
-        const { username, password } = body;
+        let username, password;
+        const contentType = request.headers.get('content-type') || '';
+
+        // Parse request body based on content type
+        if (contentType.includes('application/json')) {
+            // Handle JSON data
+            const body = await request.json();
+            username = body.username;
+            password = body.password;
+        } else if (contentType.includes('application/x-www-form-urlencoded')) {
+            // Handle form-urlencoded data
+            const formData = await request.formData();
+            username = formData.get('username');
+            password = formData.get('password');
+        } else {
+            // Try to parse as form data if no content-type is specified
+            try {
+                const formData = await request.formData();
+                username = formData.get('username');
+                password = formData.get('password');
+            } catch {
+                // If form data parsing fails, try JSON
+                const body = await request.json();
+                username = body.username;
+                password = body.password;
+            }
+        }
 
         // Check if credentials are provided
         if (!username || !password) {
@@ -20,10 +45,7 @@ export async function POST(request) {
         }
 
         // Check if credentials match the valid ones
-        console.log('Received credentials:', { username, password });
-        console.log('if result:', username === VALID_USERNAME && password === VALID_PASSWORD)
         if (username === VALID_USERNAME && password === VALID_PASSWORD) {
-            console.log('Login successful for user:', username);
             // Return the page content with 200 status
             return new Response(`
                 <!DOCTYPE html>
@@ -45,6 +67,9 @@ export async function POST(request) {
                                 <p class="mt-2 text-sm text-green-600">
                                     Login successful for user: ${username}
                                 </p>
+                                <p class="mt-1 text-xs text-gray-500">
+                                    Content-Type: ${contentType || 'not specified'}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -63,9 +88,9 @@ export async function POST(request) {
             );
         }
     } catch (error) {
-        // Handle JSON parsing errors or other issues
+        // Handle parsing errors or other issues
         return NextResponse.json(
-            { error: 'Invalid request body' },
+            { error: 'Invalid request body or unsupported content type' },
             { status: 400 }
         );
     }
