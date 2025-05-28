@@ -20,7 +20,10 @@ export async function POST(request) {
         }
 
         // Check if credentials match the valid ones
+        console.log('Received credentials:', { username, password });
+        console.log('if result:', username === VALID_USERNAME && password === VALID_PASSWORD)
         if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+            console.log('Login successful for user:', username);
             // Return the page content with 200 status
             return new Response(`
                 <!DOCTYPE html>
