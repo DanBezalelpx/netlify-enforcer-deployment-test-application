@@ -30,6 +30,10 @@ export default async function handler(request: Request, context: Context) {
 
   const px = new PXEnforcer(config);
   const resp = await px.enforce(request);
+
+  const originResponse = await context.next();
+
+  await px.handleResponse(originResponse.clone(), resp);
   
   if (resp.pxResponse) {
     return new Response(resp.pxResponse.body, {
@@ -37,10 +41,6 @@ export default async function handler(request: Request, context: Context) {
       status: resp.pxResponse.status,
     });
   }
-  
-  const originResponse = await context.next();
-
-  await px.handleResponse(originResponse.clone(), resp);
 
   return originResponse;
 } 
