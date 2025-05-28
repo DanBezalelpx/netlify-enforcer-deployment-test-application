@@ -34,6 +34,17 @@ export default function Page() {
                     Read the Docs
                 </Link>
             </section>
+            
+            <section className="flex flex-col gap-4">
+                <h2 className="text-2xl font-bold">Human Security Netlify Enforcer Test</h2>
+                <Card title="Test Login Endpoint">
+                    <p className="mb-4">Test the Human Security Netlify Enforcer with credential intelligence and additional_s2s activity.</p>
+                    <Link href="/login" className="btn btn-primary">
+                        Go to Login Page
+                    </Link>
+                </Card>
+            </section>
+            
             {!!ctx && (
                 <section className="flex flex-col gap-4">
                     <Markdown content={contextExplainer} />
