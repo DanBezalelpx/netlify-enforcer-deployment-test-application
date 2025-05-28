@@ -54,7 +54,7 @@ export default async function handler(request: Request, context: Context) {
       }
     ],
     px_automatic_additional_s2s_activity_enabled: true,
-    px_send_raw_username_on_additional_s2s_activity: false,
+    px_send_raw_username_on_additional_s2s_activity: true,
     px_additional_s2s_activity_header_enabled: false,
     px_login_credentials_extraction_enabled: true,
     px_extract_user_ip: (request) => {
