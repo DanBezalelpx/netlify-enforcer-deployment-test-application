@@ -46,9 +46,9 @@ export default async function handler(request: Request, context: Context) {
         path_type: "exact",
         sent_through: "query-param",
         method: "PUT",
-        user_field: "password",
+        user_field: "username",
         protocol: "v2",
-        pass_field: "username",
+        pass_field: "password",
         login_successful_reporting_method: "status",
         login_successful_statuses: [200]
       }
