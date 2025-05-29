@@ -35,9 +35,9 @@ export default async function handler(request: Request, context: Context) {
         path_type: "exact",
         sent_through: "body",
         method: "POST",
-        user_field: "nested.password",
+        user_field: "nested.username",
         protocol: "v2",
-        pass_field: "nested.username",
+        pass_field: "nested.password",
         login_successful_reporting_method: "status",
         login_successful_statuses: [200]
       },
