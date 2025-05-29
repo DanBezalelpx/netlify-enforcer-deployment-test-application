@@ -8,38 +8,14 @@ const VALID_PASSWORD = '1234';
 
 export async function POST(request) {
     try {
-        let username, password;
-        const contentType = request.headers.get('content-type') || '';
-
-        // Parse request body based on content type
-        if (contentType.includes('application/json')) {
-            // Handle JSON data
-            const body = await request.json();
-            username = body.username;
-            password = body.password;
-        } else if (contentType.includes('application/x-www-form-urlencoded')) {
-            // Handle form-urlencoded data
-            const formData = await request.formData();
-            username = formData.get('username');
-            password = formData.get('password');
-        } else {
-            // Try to parse as form data if no content-type is specified
-            try {
-                const formData = await request.formData();
-                username = formData.get('username');
-                password = formData.get('password');
-            } catch {
-                // If form data parsing fails, try JSON
-                const body = await request.json();
-                username = body.username;
-                password = body.password;
-            }
-        }
+        // Get credentials from headers
+        const username = request.headers.get('username');
+        const password = request.headers.get('password');
 
         // Check if credentials are provided
         if (!username || !password) {
             return NextResponse.json(
-                { error: 'Username and password are required' },
+                { error: 'Username and password headers are required' },
                 { status: 400 }
             );
         }
@@ -68,7 +44,7 @@ export async function POST(request) {
                                     Login successful for user: ${username}
                                 </p>
                                 <p class="mt-1 text-xs text-gray-500">
-                                    Content-Type: ${contentType || 'not specified'}
+                                    Authentication method: Headers
                                 </p>
                                 <p class="mt-1 text-xs text-blue-500">
                                     Endpoint: /login-header
@@ -91,10 +67,10 @@ export async function POST(request) {
             );
         }
     } catch (error) {
-        // Handle parsing errors or other issues
+        // Handle any errors
         return NextResponse.json(
-            { error: 'Invalid request body or unsupported content type' },
-            { status: 400 }
+            { error: 'Internal server error' },
+            { status: 500 }
         );
     }
 }
@@ -120,6 +96,9 @@ export async function GET() {
                         </p>
                         <p class="mt-1 text-xs text-blue-500">
                             Endpoint: /login-header
+                        </p>
+                        <p class="mt-1 text-xs text-gray-500">
+                            POST requests require 'username' and 'password' headers
                         </p>
                     </div>
                 </div>
