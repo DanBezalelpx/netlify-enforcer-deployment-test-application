@@ -8,7 +8,7 @@ export default async function handler(request: Request, context: Context) {
     px_auth_token: Netlify.env.get("PX_AUTH_TOKEN"),
     px_logger_severity: LoggerSeverity.DEBUG,
     px_module_mode: ModuleMode.ACTIVE_BLOCKING,
-    px_backend_url: "https://0f21ad7cfc91.ngrok.app",
+    //px_backend_url: "https://0f21ad7cfc91.ngrok.app",
     px_login_credentials_extraction: [ {
       path: "/login",
       path_type: "exact",
