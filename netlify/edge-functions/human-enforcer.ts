@@ -58,6 +58,7 @@ export default async function handler(request: Request, context: Context) {
     px_additional_s2s_activity_header_enabled: false,
     px_login_credentials_extraction_enabled: true,
     px_extract_user_ip: (request) => {
+      console.log('Extracting user IP from context.ip: ', context.ip);
       return context.ip;
     },
   };
